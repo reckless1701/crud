@@ -75,17 +75,33 @@
             <?php 
             include('koneksitugas.php');
             $result = $kon->query('SELECT * FROM `data_handphone`');
-                foreach ($result as $hp) : echo"<tr>
-                <td>".$hp['id_handphone']."</td>
-                <td>".$hp['nama_handphone']."</td>
-                <td>".$hp['jenis_handphone']."</td>
-                <td>".$hp['harga_handphone']."</td>
-                <td>".$hp['stok_handphone']."</td>
-                <td>".$hp['url_gambar']."</td>
-                <td>".'<a href="proses_hapus.php">Delete</a>'."</td>
-                </tr>";
-                endforeach; 
-            ?>
+                foreach ($result as $isi) : 
+                if ($isi['stok_handphone'] < 5) {
+                    echo"<tr><td>".$isi['id_handphone']."</td>
+                                                <td>".$isi['nama_handphone']."</td>
+                                                <td>".$isi['jenis_handphone']."</td>
+                                                <td>".$isi['harga_handphone']."</td>
+                                                <td>".$isi['url_gambar']."</td>
+                                                <td class='stok_merah'>".$isi['stok_handphone']."</td>" ?>
+                                                <td>
+                                                <button type="button" class="btn btn-primary"><a href="form_edit.php?key=<?php echo $isi['id_handphone']?>" style="color : white;">Edit</a></button>
+                                                <button type="button" class="btn btn-danger"><a href="hapusdata.php?key=<?php echo $isi['id_handphone']?>" style="color : white;">Hapus</a></button>
+                                                </td></tr>
+                <?php }
+                else {
+                    echo"<tr><td>".$isi['id_handphone']."</td>
+                                                <td>".$isi['nama_handphone']."</td>
+                                                <td>".$isi['jenis_handphone']."</td>
+                                                <td>".$isi['harga_handphone']."</td>
+                                                <td>".$isi['url_gambar']."</td>
+                                                <td>".$isi['stok_handphone']."</td>" ?>
+                                                <td>
+                                                <button type="button" class="btn btn-primary"><a href="form_edit.php?key=<?php echo $isi['id_handphone']?>" style="color : white;">Edit</a></button>
+                                                <button type="button" class="btn btn-danger"><a href="hapusdata.php?key=<?php echo $isi['id_handphone']?>" style="color : white;">Hapus</a></button>
+                                                </tr>
+                <?php }
+                endforeach;
+                ?>
             
         </table>
     </div>
